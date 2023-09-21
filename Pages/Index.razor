@@ -11,13 +11,16 @@ Welcome to your new app.
 
 <div id="root"></div>
 
-@code{
+<div id="titleElement"></div>
+
+@code {
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
     await base.OnAfterRenderAsync(firstRender);
-    if(firstRender)
+    if (firstRender)
     {
       await jsr.InvokeVoidAsync("renderMyCounter", "root", 123);
+      await jsr.InvokeVoidAsync("renderMyTitle", "titleElement", "我是抬頭");
     }
   }
 }
