@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IJSRuntime jsr
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,16 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<div id="root"></div>
+
+@code{
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if(firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMyCounter", "root", 123);
+    }
+  }
+}
