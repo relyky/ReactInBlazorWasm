@@ -1,0 +1,36 @@
+﻿@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+
+@code {
+  [Parameter, EditorRequired] public List<ValueLabel> Options { get; set; } = default!;
+  [Parameter] public EventCallback<ValueLabel> OnChange { get; set; }
+
+  ElementReference refRoot;
+
+  //List<ValueLabel> Options = new()
+  //{
+  //  new("摩卡","摩卡"),
+  //  new("拿鐵","拿鐵"),
+  //  new("焦糖瑪奇朵","焦糖瑪奇朵"),
+  //  new("阿華田","阿華田"),
+  //  new("chocolate","chocolate"),
+  //  new("strawberry","strawberry"),
+  //  new("vanilla","vanilla"),
+  //};
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMySelect", DotNetObjectReference.Create(this), refRoot, Options);
+    }
+  }
+
+  /// <summary>
+  /// 當 React 元件有訊息送上來時觸發。
+  /// </summary>
+  [JSInvokable]
+  public Task OnSelect(ValueLabel selectedOption) => OnChange.InvokeAsync(selectedOption);
+}
