@@ -9,14 +9,16 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-<div @ref=refRoot></div>
-<h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
-
 <div @ref=refTitleElement></div>
 
+<MyCounter @ref=refMyCounter InitCount=123 OnChange="(newCount)=> count = newCount" />
+<h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
+<button class="btn btn-secondary" @onclick=HandleResetCount>重置 MyCounter</button>
+
 @code {
-  ElementReference refRoot;
   ElementReference refTitleElement;
+
+  MyCounter refMyCounter = default!;
   int count = 0;
 
   protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -24,18 +26,13 @@ Welcome to your new app.
     await base.OnAfterRenderAsync(firstRender);
     if (firstRender)
     {
-      await jsr.InvokeVoidAsync("renderMyCounter", DotNetObjectReference.Create(this), refRoot, 123);
       await jsr.InvokeVoidAsync("renderMyTitle", refTitleElement, "我是抬頭");
     }
   }
 
-  /// <summary>
-  /// 當 React 元件有訊息送上來時觸發。
-  /// </summary>
-  [JSInvokable]
-  public async Task OnCountChange(int newCount)
+  async Task HandleResetCount()
   {
-    count = newCount;
-    await InvokeAsync(StateHasChanged); // 需用非同步通告
+    // 重置計數器
+    await refMyCounter.ResetAsync();
   }
 }

@@ -21,7 +21,6 @@ window.renderMyCounter = function (dotNetObject, rootElement, initCount) {
   // props down
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MyCounter initCount={initCount} onChange={handleChange} />);
-  dotNetObject.invokeMethodAsync('OnCountChange', initCount); // init notify.
 }
 
 //## 註冊雙向繫結 React 元件：react-select

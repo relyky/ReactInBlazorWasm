@@ -3,17 +3,17 @@
 export default function MyCounter({ initCount /* int */, onChange /* event */ }) {
   const [count, setCount] = useState(initCount || 0);
 
-  function HandleClick() {
+  function handleClick() {
     const newCount = count + 1;
     setCount(newCount)
     onChange(newCount)
   }
 
   return (
-    <div style={{ border: 'solid 2px red', borderRadius: 8, padding: 8 }}>
+    <div className="p-2 my-2" style={{ border: 'solid 2px red', borderRadius: 8 }}>
       <h3>我用 React 開發出來的</h3>
       <p>You clicked {count} times</p>
-      <button onClick={HandleClick}>
+      <button class="btn btn-primary" onClick={handleClick}>
         Click me
       </button>
     </div>
