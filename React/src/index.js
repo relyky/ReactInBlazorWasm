@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
 import MySelect from './MySelect'
+import MyBarcode from './MyBarcode'
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -41,4 +42,9 @@ window.renderMySelect = function (dotNetObject, rootElement, options, value) {
   console.log(`MySelect.render =>`, value);
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MySelect options={options} onChange={handleChange} value={value} />);
+}
+
+window.renderMyBarcode = function (rootElement, code) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<MyBarcode code={code} />);
 }

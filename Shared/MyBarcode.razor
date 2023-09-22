@@ -1,0 +1,18 @@
+﻿@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+
+@code {
+  [Parameter] public string Code { get; set; } = "https://www.asiavista.com.tw/";
+
+  ElementReference refRoot;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if(firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMyBarcode", refRoot, Code);
+    }
+  }
+}
