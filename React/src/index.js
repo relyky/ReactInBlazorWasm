@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
 import MySelect from './MySelect'
-import MyBarcode from './MyBarcode'
+import MyQRCode from './MyQRCode'
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -44,7 +44,8 @@ window.renderMySelect = function (dotNetObject, rootElement, options, value) {
   root.render(<MySelect options={options} onChange={handleChange} value={value} />);
 }
 
-window.renderMyBarcode = function (rootElement, code) {
+//## 註冊單向繫結 React 元件：qrcode.react
+window.renderMyQRCode = function (rootElement, code) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<MyBarcode code={code} />);
+  root.render(<MyQRCode code={code} />);
 }
