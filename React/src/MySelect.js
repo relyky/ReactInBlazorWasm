@@ -7,7 +7,7 @@ import Select from 'react-select'
 //  { value: 'vanilla', label: 'Vanilla' }
 //]
 
-export default function MySelect({ options, onChange }) {
+export default function MySelect({ options, onChange, value }) {
 
   //function handleChange(selectedOption) {
   //  // setSelected(selectedOption);
@@ -15,6 +15,6 @@ export default function MySelect({ options, onChange }) {
   //};
 
   return (
-    <Select options={options} onChange={onChange} />
+    <Select options={options} onChange={onChange} value={value} />
   )
 }

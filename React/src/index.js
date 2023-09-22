@@ -4,13 +4,13 @@ import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
 import MySelect from './MySelect'
 
-//## 單向繫結 React 元件：MyTitle
+//## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MyTitle title={title} />);
 }
 
-//## 雙向繫結 React 元件：MyCounter
+//## 註冊雙向繫結 React 元件：MyCounter
 window.renderMyCounter = function (dotNetObject, rootElement, initCount) {
   function handleChange(newCount) {
     // events up
@@ -24,8 +24,8 @@ window.renderMyCounter = function (dotNetObject, rootElement, initCount) {
   dotNetObject.invokeMethodAsync('OnCountChange', initCount); // init notify.
 }
 
-//## 應用於繫結 React 元件：react-select
-window.renderMySelect = function (dotNetObject, rootElement, options) {
+//## 註冊雙向繫結 React 元件：react-select
+window.renderMySelect = function (dotNetObject, rootElement, options, value) {
   //const options = [
   //  { value: '焦糖瑪奇朵', label: '焦糖瑪奇朵' },
   //  { value: '阿華田', label: '阿華田' },
@@ -35,10 +35,11 @@ window.renderMySelect = function (dotNetObject, rootElement, options) {
   //]
 
   function handleChange(selectedOption /* LabelValue */) {
-    console.log(`MySelect selected:`, selectedOption);
+    console.log(`MySelect.OnSelect =>`, selectedOption);
     dotNetObject.invokeMethodAsync('OnSelect', selectedOption);
   };
 
+  console.log(`MySelect.render =>`, value);
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<MySelect options={options} onChange={handleChange} />);
+  root.render(<MySelect options={options} onChange={handleChange} value={value} />);
 }

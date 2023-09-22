@@ -1,0 +1,61 @@
+﻿@page "/render-react-component"
+@inject IJSRuntime jsr
+
+<PageTitle>Render React Component</PageTitle>
+
+<h1>Render React Component</h1>
+
+<p>測試超過3000選項的速度</p>
+<MySelect Options=@optionList Value=@selectedOption OnChange=@HandleSelectChange />
+<p>Index selectedOption => @selectedOption?.value : @selectedOption?.label</p>
+
+<button @onclick=HandleModify>變更選項剩三項</button>
+
+@code {
+  ValueLabel? selectedOption;
+
+  List<ValueLabel> optionList = new()
+  {
+    new("美式咖啡","美式咖啡"),
+    new("卡布奇諾","卡布奇諾"),
+    new("摩卡","摩卡"),
+    new("拿鐵","拿鐵"),
+    new("焦糖瑪奇朵","焦糖瑪奇朵"),
+    new("阿華田","阿華田"),
+    new("chocolate","chocolate"),
+    new("strawberry","strawberry"),
+    new("vanilla","vanilla"),
+  };
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+
+    // 3000 筆選項
+    for(int i = 1; i<=3000; i++)
+    {
+      optionList.Add(new ValueLabel($"A{i:0000}", $"我是{i:0000}項目"));
+    }
+
+  }
+
+  async Task HandleModify()
+  {
+    List<ValueLabel> newOptionList = new()
+    {
+      new("chocolate2","chocolate2"),
+      new("strawberry2","strawberry2"),
+      new("vanilla2","vanilla2"),
+    };
+
+    optionList = newOptionList;
+    selectedOption = null;
+    await Task.CompletedTask;
+  }
+
+  async Task HandleSelectChange(ValueLabel selectedOption)
+  {
+    this.selectedOption = selectedOption;
+    await Task.CompletedTask;
+  }
+}

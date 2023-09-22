@@ -10,33 +10,14 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 <div @ref=refRoot></div>
-
 <h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
 
 <div @ref=refTitleElement></div>
-
-<MySelect Options=@optionList OnChange=@HandleSelectChange />
-<p>Index selectedOption => @selectedOption?.value</p>
 
 @code {
   ElementReference refRoot;
   ElementReference refTitleElement;
   int count = 0;
-  ValueLabel? selectedOption;
-
-  List<ValueLabel> optionList = new()
-  {
-    new("美式咖啡","美式咖啡"),
-    new("卡布奇諾","卡布奇諾"),
-    new("卡布奇諾","卡布奇諾"),
-    new("摩卡","摩卡"),
-    new("拿鐵","拿鐵"),
-    new("焦糖瑪奇朵","焦糖瑪奇朵"),
-    new("阿華田","阿華田"),
-    new("chocolate","chocolate"),
-    new("strawberry","strawberry"),
-    new("vanilla","vanilla"),
-  };
 
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
@@ -56,11 +37,5 @@ Welcome to your new app.
   {
     count = newCount;
     await InvokeAsync(StateHasChanged); // 需用非同步通告
-  }
-
-  async Task HandleSelectChange(ValueLabel selectedOption)
-  {
-    this.selectedOption = selectedOption;
-    await Task.CompletedTask;
   }
 }
