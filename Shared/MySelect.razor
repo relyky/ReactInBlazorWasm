@@ -23,7 +23,9 @@
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
     await base.OnAfterRenderAsync(firstRender);
+
     await jsr.InvokeVoidAsync("renderMySelect", DotNetObjectReference.Create(this), refRoot, Options, Value);
+    //※ 這邊的懶人做法可能導致過度刷新 React 元件
   }
 
   /// <summary>
