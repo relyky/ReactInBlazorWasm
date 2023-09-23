@@ -1,5 +1,14 @@
 ﻿@inject IJSRuntime jsr
 
+<button class="btn btn-primary" @onclick=HandleClick>生成數據</button>
+
+@if(f_loading)
+{
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+  </div>
+}
+
 <div @ref=refRoot></div>
 
 @code {
@@ -7,6 +16,7 @@
   ElementReference refRoot;
 
   List<AcquisitionInfo> data = new();
+  bool f_loading = false;
 
   protected override async Task OnInitializedAsync()
   {
@@ -30,6 +40,34 @@
     if (firstRender)
     {
       await jsr.InvokeVoidAsync("renderMyAcquisitionsChart", refRoot, "My Acquisitions Chart", data);
+    }
+  }
+
+  async Task HandleClick()
+  {
+    try
+    {
+      f_loading = true;
+      await Task.Delay(500);
+
+      Random random = Random.Shared;
+      data = Enumerable.Range(1970, 2023 - 1970).Select(year =>
+        new AcquisitionInfo
+          {
+            year = year,
+            count = random.Next(0, 100)
+          }).ToList();
+
+      // 刷新圖表
+      await jsr.InvokeVoidAsync("renderMyAcquisitionsChart", refRoot, "My Acquisitions Chart", data);
+    }
+    catch(Exception ex)
+    {
+      throw ex;
+    }
+    finally
+    {
+      f_loading = false;
     }
   }
 

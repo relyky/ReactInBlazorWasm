@@ -1,5 +1,14 @@
 ﻿@inject IJSRuntime jsr
 
+<button class="btn btn-primary" @onclick=HandleClick>生成數據</button>
+
+@if (f_loading)
+{
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+  </div>
+}
+
 <div @ref=refRoot></div>
 
 @code {
@@ -7,6 +16,7 @@
   ElementReference refRoot;
 
   List<DataSetInfo> dataSets = new();
+  bool f_loading = false;
 
   protected override async Task OnInitializedAsync()
   {
@@ -41,6 +51,40 @@
     if (firstRender)
     {
       await jsr.InvokeVoidAsync("renderMyDimensionsChart", refRoot, "My Dimensions Chart", dataSets);
+    }
+  }
+
+  async Task HandleClick()
+  {
+    try
+    {
+      f_loading = true;
+      await Task.Delay(500);
+
+      Random random = Random.Shared;
+      dataSets = Enumerable.Range(1, random.Next(1,6)).Select(i =>
+        new DataSetInfo
+        {
+            label = $"數據集{i}",
+            data = Enumerable.Range(100, random.Next(20, 50)).Select(c => new ItemInfo
+            {
+              x = random.Next(1,800),
+              y = random.Next(1,600),
+              r = random.Next(1,20)
+            }).ToList()
+        }
+      ).ToList();
+
+      // 刷新圖表
+      await jsr.InvokeVoidAsync("renderMyDimensionsChart", refRoot, "My Dimensions Chart", dataSets);
+    }
+    catch (Exception ex)
+    {
+      throw ex;
+    }
+    finally
+    {
+      f_loading = false;
     }
   }
 
