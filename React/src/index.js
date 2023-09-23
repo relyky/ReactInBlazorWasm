@@ -4,6 +4,7 @@ import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
 import MySelect from './MySelect'
 import MyQRCode from './MyQRCode'
+import MyAcquisitionsChart from './MyAcquisitionsChart'
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -48,4 +49,10 @@ window.renderMySelect = function (dotNetObject, rootElement, options, value) {
 window.renderMyQRCode = function (rootElement, code) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MyQRCode code={code} />);
+}
+
+//## 註冊單向繫結 React 元件：Chart.js
+window.renderMyAcquisitionsChart = function (rootElement, title) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<MyAcquisitionsChart title={title} />);
 }

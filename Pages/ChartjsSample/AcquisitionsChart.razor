@@ -1,0 +1,17 @@
+﻿@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+
+@code {
+
+  ElementReference refRoot;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMyAcquisitionsChart", refRoot, "My Acquisitions Chart");
+    }
+  }
+}
