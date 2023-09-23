@@ -5,11 +5,12 @@
 
 <h1>Render React Component</h1>
 
-<p>測試超過3000選項的速度</p>
-<MySelect Options=@optionList Value=@selectedOption OnChange=@HandleSelectChange />
-<p>Index selectedOption => @selectedOption?.value : @selectedOption?.label</p>
-
-<button @onclick=HandleModify>變更選項剩三項</button>
+<div class="p-2 my-2" style="border:solid 2px red; border-radius:8px">
+  <p>測試超過3000選項的速度 : react-select</p>
+  <MySelect Options=@optionList Value=@selectedOption OnChange=@HandleSelectChange />
+  <p>Index selectedOption => @selectedOption?.value : @selectedOption?.label</p>
+  <button @onclick=HandleModify>變更選項</button>
+</div>
 
 <MyQRCode Code="https://www.asiavista.com.tw/" />
 
@@ -34,7 +35,7 @@
     await base.OnInitializedAsync();
 
     // 3000 筆選項
-    for(int i = 1; i<=3000; i++)
+    for (int i = 1; i <= 3000; i++)
     {
       optionList.Add(new ValueLabel($"A{i:0000}", $"我是{i:0000}項目"));
     }
