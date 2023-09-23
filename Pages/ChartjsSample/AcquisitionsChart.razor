@@ -6,12 +6,36 @@
 
   ElementReference refRoot;
 
+  List<AcquisitionInfo> data = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+
+    data = new()
+    {
+      new() { year = 2010, count = 10 },
+      new() { year = 2011, count = 20 },
+      new() { year = 2012, count = 15 },
+      new() { year = 2013, count = 25 },
+      new() { year = 2014, count = 22 },
+      new() { year = 2015, count = 30 },
+      new() { year = 2016, count = 28 },
+    };
+  }
+
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
     await base.OnAfterRenderAsync(firstRender);
     if (firstRender)
     {
-      await jsr.InvokeVoidAsync("renderMyAcquisitionsChart", refRoot, "My Acquisitions Chart");
+      await jsr.InvokeVoidAsync("renderMyAcquisitionsChart", refRoot, "My Acquisitions Chart", data);
     }
+  }
+
+  record AcquisitionInfo
+  {
+    public int year { get; set; }
+    public decimal count { get; set; }
   }
 }

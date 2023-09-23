@@ -52,7 +52,7 @@ window.renderMyQRCode = function (rootElement, code) {
 }
 
 //## 註冊單向繫結 React 元件：Chart.js
-window.renderMyAcquisitionsChart = function (rootElement, title) {
+window.renderMyAcquisitionsChart = function (rootElement, title, data) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<MyAcquisitionsChart title={title} />);
+  root.render(<MyAcquisitionsChart title={title} data={data} />);
 }
