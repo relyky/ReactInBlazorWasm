@@ -1,0 +1,59 @@
+﻿@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+
+@code {
+
+  ElementReference refRoot;
+
+  List<DataSetInfo> dataSets = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+
+    dataSets = new List<DataSetInfo>
+    {
+      new DataSetInfo {
+        label = "數據集Ａ",
+        data = new List<ItemInfo>{ new(){ x = 20, y = 30, r = 15 }, new(){ x = 40, y = 10, r = 10 }, new(){ x = 10, y = 15, r = 5 } }
+      },
+      new DataSetInfo {
+        label = "數據集Ｂ",
+        data = new List<ItemInfo>{ new(){ x = 30, y = 40, r = 25 }, new(){ x = 40, y = 20, r = 30 }, new(){ x = 15, y = 20, r = 17 }, new(){ x = 25, y = 35, r = 7 } }
+      },
+    };
+
+    //const dataSets = [
+    //  {
+    //    label: 'First Dataset',
+    //    data: [{ x: 20, y: 30, r: 15 }, { x: 40, y: 10, r: 10 }, { x: 10, y: 15, r: 5 }],
+    //  },
+    //  {
+    //    label: 'Second Dataset',
+    //    data: [{ x: 30, y: 40, r: 25 }, { x: 40, y: 20, r: 30 }, { x: 15, y: 20, r: 17 }],
+    //  }];
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMyDimensionsChart", refRoot, "My Dimensions Chart", dataSets);
+    }
+  }
+
+  record DataSetInfo
+  {
+    public string label { get; init; } = default!;
+    public List<ItemInfo> data { get; init; } = new();
+  }
+
+  record ItemInfo
+  {
+    public decimal x { get; init; }
+    public decimal y { get; init; }
+    public decimal r { get; init; }
+  }
+}

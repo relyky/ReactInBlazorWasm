@@ -5,6 +5,7 @@ import MyTitle from './MyTitle'
 import MySelect from './MySelect'
 import MyQRCode from './MyQRCode'
 import MyAcquisitionsChart from './MyAcquisitionsChart'
+import MyDimensionsChart from './MyDimensionsChart'
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -51,8 +52,14 @@ window.renderMyQRCode = function (rootElement, code) {
   root.render(<MyQRCode code={code} />);
 }
 
-//## 註冊單向繫結 React 元件：Chart.js
+//## 註冊單向繫結 React 元件：Chart.js - Bar chart
 window.renderMyAcquisitionsChart = function (rootElement, title, data) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MyAcquisitionsChart title={title} data={data} />);
+}
+
+//## 註冊單向繫結 React 元件：Chart.js - Bubble chart 
+window.renderMyDimensionsChart = function (rootElement, title, dataSets) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<MyDimensionsChart title={title} dataSets={dataSets} />);
 }
