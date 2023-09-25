@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+﻿import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import Select from 'react-select'
 
 //const options = [
@@ -15,6 +15,7 @@ import Select from 'react-select'
  * }
  */
 
+//§§ 這個進階版的寫法也沒有快多少的樣子！大概都在前端跑的關系吧。
 export default forwardRef(function MySelect2({ options, onChange, value } , ref) {
   const [_options, setOptions] = useState(options);
   const [_value, setValue] = useState(value);

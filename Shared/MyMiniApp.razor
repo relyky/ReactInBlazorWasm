@@ -6,8 +6,9 @@
 
   <EditForm Model=@attrs>
     <InputNumber @bind-Value=@attrs.count />
-    <button @onclick=HandleUpdateProps>update props</button>
+    <button @onclick=HandleUpdateAttrs>update attrs</button>
   </EditForm>
+
   <div @ref=refRoot></div>
 </div>
 
@@ -30,7 +31,7 @@
     }
   }
 
-  async Task HandleUpdateProps()
+  async Task HandleUpdateAttrs()
   {
     await jsr.InvokeVoidAsync("updateMyMiniApp", miniAppUid, attrs);
   }
