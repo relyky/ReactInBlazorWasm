@@ -75,7 +75,7 @@ window.renderMyMiniApp = function (rootElement) {
 
   this.updateProps = () => {
     console.log('renderMyMiniApp.updateProps')
-    alert('renderMyMiniApp.updateProps')
+    rootRef.current.updateProps();
   }
 
   root.render(<MyMiniApp ref={rootRef} />);
