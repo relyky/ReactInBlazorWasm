@@ -96,7 +96,7 @@ window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object *
   miniApp.updateAttrs(newAttrs)
 }
 
-//## 註冊進階元件: MySelect : react-select ====================================
+//## 註冊進階元件: MySelect Adv : react-select ====================================
 window.renderMySelect2 = function (dotNetObject, rootElement, options, value) {
   //const options = [
   //  { value: '焦糖瑪奇朵', label: '焦糖瑪奇朵' },
