@@ -8,6 +8,7 @@ import MyQRCode from './MyQRCode'
 import MyAcquisitionsChart from './MyAcquisitionsChart'
 import MyDimensionsChart from './MyDimensionsChart'
 import MyMiniApp from './MyMiniApp'
+import MySelect2 from './MySelect2'
 
 window.MyReactComponentsRepo = {}
 
@@ -91,6 +92,55 @@ window.renderMyMiniApp = function (rootElement, initAttrs) {
 
 window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object */)
 {
+  const miniApp = window.MyReactComponentsRepo[miniAppUid]
+  miniApp.updateAttrs(newAttrs)
+}
+
+//## 註冊進階元件: MySelect : react-select ====================================
+window.renderMySelect2 = function (dotNetObject, rootElement, options, value) {
+  //const options = [
+  //  { value: '焦糖瑪奇朵', label: '焦糖瑪奇朵' },
+  //  { value: '阿華田', label: '阿華田' },
+  //  { value: 'chocolate', label: 'Chocolate' },
+  //  { value: 'strawberry', label: 'Strawberry' },
+  //  { value: 'vanilla', label: 'Vanilla' }
+  //]
+
+  const root = ReactDOM.createRoot(rootElement)
+  const rootRef = createRef()
+
+  this.updateAttrs = (newAttrs) => {
+    //console.log(`renderMySelect2.updateAttrs`);
+    const { options, value } = newAttrs
+
+    if (options && Array.isArray(options))
+    {
+      rootRef.current.updateOptions(options)
+    }
+
+    if (value === null) {
+      rootRef.current.updateValue(value)
+    }
+    else if (value instanceof Object) {
+      rootRef.current.updateValue(value)
+    }
+  }
+
+  function handleChange(selectedOption /* LabelValue */) {
+    //console.log(`MySelect2.OnSelect =>`, selectedOption);
+    dotNetObject.invokeMethodAsync('OnSelect', selectedOption);
+  };
+
+  //console.log(`MySelect2.render =>`, value);
+  root.render(<MySelect2 ref={rootRef} options={options} onChange={handleChange} value={value} />);
+
+  const miniAppUid = `MySelect2-${uuidv4()}`
+  window.MyReactComponentsRepo[miniAppUid] = this
+  return miniAppUid
+}
+
+window.updateMySelect2 = function (miniAppUid /* string */, newAttrs /* object */) {
+  console.log(`updateMySelect2 =>`, newAttrs);
   const miniApp = window.MyReactComponentsRepo[miniAppUid]
   miniApp.updateAttrs(newAttrs)
 }

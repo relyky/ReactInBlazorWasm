@@ -1,0 +1,52 @@
+﻿@using System.Dynamic;
+@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+
+@code {
+    [Parameter, EditorRequired] public List<ValueLabel> Options { get; set; } = default!;
+    [Parameter] public ValueLabel? Value { get; set; }
+    [Parameter] public EventCallback<ValueLabel> OnChange { get; set; }
+
+    ElementReference refRoot;
+    string? miniAppUid;
+
+    List<ValueLabel> _oldOptions = default!;
+    bool f_dirty = false;
+    dynamic newAttrs = default!;
+
+  protected override void OnParametersSet()
+  {
+    base.OnParametersSet();
+    newAttrs = new ExpandoObject();
+    if (_oldOptions != Options)
+    {
+      newAttrs.options = Options;
+      _oldOptions = Options;
+    }
+
+    newAttrs.value = Value;
+    f_dirty = true;
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      miniAppUid = await jsr.InvokeAsync<string>("renderMySelect2", DotNetObjectReference.Create(this), refRoot, Options, Value);
+      //await InvokeAsync(StateHasChanged);
+    }
+    else if (f_dirty)
+    {
+      await jsr.InvokeVoidAsync("updateMySelect2", miniAppUid, (object)newAttrs);
+      f_dirty = false;
+    }
+  }
+
+  /// <summary>
+  /// 當 React 元件有訊息送上來時觸發。
+  /// </summary>
+  [JSInvokable]
+  public Task OnSelect(ValueLabel selectedOption) => OnChange.InvokeAsync(selectedOption);
+}

@@ -7,7 +7,11 @@
 
 <div class="p-2 my-2" style="border:solid 2px red; border-radius:8px">
   <p>測試超過3000選項的速度 : react-select</p>
+
   <MySelect Options=@optionList Value=@selectedOption OnChange=@HandleSelectChange />
+
+  <MySelect2 Options=@optionList Value=@selectedOption OnChange=@HandleSelectChange />
+
   <p>Index selectedOption => @selectedOption?.value : @selectedOption?.label</p>
   <button @onclick=HandleModify>變更選項</button>
 </div>
@@ -52,7 +56,7 @@
     };
 
     optionList = newOptionList;
-    selectedOption = null;
+    selectedOption = new("strawberry2", "strawberry2");
     await Task.CompletedTask;
   }
 
