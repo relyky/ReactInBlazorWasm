@@ -1,4 +1,4 @@
-﻿import React from 'react'
+﻿import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
@@ -6,6 +6,10 @@ import MySelect from './MySelect'
 import MyQRCode from './MyQRCode'
 import MyAcquisitionsChart from './MyAcquisitionsChart'
 import MyDimensionsChart from './MyDimensionsChart'
+import MyMiniApp from './MyMiniApp'
+
+
+window.MyMiniAppRepos = {}
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -62,4 +66,27 @@ window.renderMyAcquisitionsChart = function (rootElement, title, data) {
 window.renderMyDimensionsChart = function (rootElement, title, dataSets) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<MyDimensionsChart title={title} dataSets={dataSets} />);
+}
+
+//## 註冊進階測試
+window.renderMyMiniApp = function (rootElement) {
+  const root = ReactDOM.createRoot(rootElement)
+  const rootRef = createRef()
+
+  this.updateProps = () => {
+    console.log('renderMyMiniApp.updateProps')
+    alert('renderMyMiniApp.updateProps')
+  }
+
+  root.render(<MyMiniApp ref={rootRef} />);
+
+  const miniAppUid = 'xxx_id'
+  window.MyMiniAppRepos[miniAppUid] = this;
+  return miniAppUid;
+}
+
+window.updateMyMiniApp = function (miniAppUid /* string */, action /* string */, args /* object */)
+{
+  const miniApp = window.MyMiniAppRepos[miniAppUid];
+  miniApp.updateProps();
 }

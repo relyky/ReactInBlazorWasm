@@ -11,6 +11,8 @@ Welcome to your new app.
 
 <div @ref=refTitleElement></div>
 
+<MyMiniApp />
+
 <MyCounter @ref=refMyCounter InitCount=123 OnChange="(newCount)=> count = newCount" />
 <h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
 <button class="btn btn-secondary" @onclick=HandleResetCount>重置 MyCounter</button>

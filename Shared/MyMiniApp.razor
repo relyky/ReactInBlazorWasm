@@ -1,0 +1,27 @@
+﻿@inject IJSRuntime jsr
+
+<div class='p-2 my-2' style='border:solid 2px blue; border-radius: 8px'>
+  <h3>MyMiniApp: @miniAppUid</h3>
+  <button @onclick=HandleUpdateProps>update props</button>
+  <div @ref=refRoot></div>
+</div>
+
+@code {
+  ElementReference refRoot;
+  string? miniAppUid;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      miniAppUid = await jsr.InvokeAsync<string>("renderMyMiniApp", refRoot);
+      await InvokeAsync(StateHasChanged);
+    }
+  }
+
+  async Task HandleUpdateProps()
+  {
+    await jsr.InvokeVoidAsync("updateMyMiniApp", miniAppUid);
+  }
+}
