@@ -11,11 +11,13 @@ Welcome to your new app.
 
 <div @ref=refTitleElement></div>
 
-<MyMiniApp />
+<div class='p-2 my-2' style='border:solid 2px blue; border-radius: 8px'>
+  <MyCounter @ref=refMyCounter InitCount=123 OnChange="(newCount)=> count = newCount" />
+  <h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
+  <button class="btn btn-secondary" @onclick=HandleResetCount>重置 MyCounter</button>
+</div>
 
-<MyCounter @ref=refMyCounter InitCount=123 OnChange="(newCount)=> count = newCount" />
-<h4 class="py-3">這裡不在 React 元件裡面 count: @count</h4>
-<button class="btn btn-secondary" @onclick=HandleResetCount>重置 MyCounter</button>
+<MyMiniApp />
 
 @code {
   ElementReference refTitleElement;

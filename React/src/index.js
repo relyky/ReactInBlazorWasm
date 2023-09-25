@@ -1,5 +1,6 @@
 ﻿import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
+import { v4 as uuidv4 } from 'uuid'
 import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
 import MySelect from './MySelect'
@@ -8,8 +9,7 @@ import MyAcquisitionsChart from './MyAcquisitionsChart'
 import MyDimensionsChart from './MyDimensionsChart'
 import MyMiniApp from './MyMiniApp'
 
-
-window.MyMiniAppRepos = {}
+window.MyReactComponentsRepo = {}
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
@@ -68,25 +68,29 @@ window.renderMyDimensionsChart = function (rootElement, title, dataSets) {
   root.render(<MyDimensionsChart title={title} dataSets={dataSets} />);
 }
 
-//## 註冊進階測試
-window.renderMyMiniApp = function (rootElement) {
+//## 註冊進階元件
+window.renderMyMiniApp = function (rootElement, initAttrs) {
   const root = ReactDOM.createRoot(rootElement)
   const rootRef = createRef()
 
-  this.updateProps = () => {
-    console.log('renderMyMiniApp.updateProps')
-    rootRef.current.updateProps();
+  this.updateAttrs = (newAttrs) => {
+    rootRef.current.updateAttrs(newAttrs)
   }
 
-  root.render(<MyMiniApp ref={rootRef} />);
+  function handleChange(attrs) {
+    console.log('MyMiniApp.handleChange =>', { attrs })
+    // 需要上送訊息的話，可透過 dotNetObject.invokeMethodAsync() 往上送訊息。
+  }
 
-  const miniAppUid = 'xxx_id'
-  window.MyMiniAppRepos[miniAppUid] = this;
-  return miniAppUid;
+  root.render(<MyMiniApp ref={rootRef} attrs={initAttrs} onChange={handleChange} />)
+
+  const miniAppUid = `MyMiniApp-${uuidv4()}`
+  window.MyReactComponentsRepo[miniAppUid] = this
+  return miniAppUid
 }
 
-window.updateMyMiniApp = function (miniAppUid /* string */, action /* string */, args /* object */)
+window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object */)
 {
-  const miniApp = window.MyMiniAppRepos[miniAppUid];
-  miniApp.updateProps();
+  const miniApp = window.MyReactComponentsRepo[miniAppUid]
+  miniApp.updateAttrs(newAttrs)
 }

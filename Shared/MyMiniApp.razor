@@ -1,8 +1,13 @@
 ﻿@inject IJSRuntime jsr
 
 <div class='p-2 my-2' style='border:solid 2px blue; border-radius: 8px'>
+  <p style='color:blue'>這裡用 Blazor 開發出來的</p>
   <h3>MyMiniApp: @miniAppUid</h3>
-  <button @onclick=HandleUpdateProps>update props</button>
+
+  <EditForm Model=@attrs>
+    <InputNumber @bind-Value=@attrs.count />
+    <button @onclick=HandleUpdateProps>update props</button>
+  </EditForm>
   <div @ref=refRoot></div>
 </div>
 
@@ -10,18 +15,28 @@
   ElementReference refRoot;
   string? miniAppUid;
 
+  MyAttrs attrs = new()
+    {
+      count = 1,
+    };
+
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
     await base.OnAfterRenderAsync(firstRender);
     if (firstRender)
     {
-      miniAppUid = await jsr.InvokeAsync<string>("renderMyMiniApp", refRoot);
+      miniAppUid = await jsr.InvokeAsync<string>("renderMyMiniApp", refRoot, attrs);
       await InvokeAsync(StateHasChanged);
     }
   }
 
   async Task HandleUpdateProps()
   {
-    await jsr.InvokeVoidAsync("updateMyMiniApp", miniAppUid);
+    await jsr.InvokeVoidAsync("updateMyMiniApp", miniAppUid, attrs);
+  }
+
+  record MyAttrs
+  {
+    public int count { get; set; }
   }
 }
