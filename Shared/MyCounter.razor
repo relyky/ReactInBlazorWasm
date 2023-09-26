@@ -2,6 +2,7 @@
 @inject ILogger<MyCounter> logger
 
 <div @ref=refRoot></div>
+@* for React to render *@
 
 @code {
   [Parameter] public int InitCount { get; set; } = 0;
@@ -19,6 +20,9 @@
     }
   }
 
+  /// <summary>
+  /// 將用於 Re-Mount
+  /// </summary>
   public async Task ResetAsync()
   {
     logger.LogInformation("ON:Reset");
