@@ -10,17 +10,17 @@ React 的 ReactDOM 模組可以 render 到 html element。
 經測試它們可以有限的互通，交互作用越多鷹架碼就越多。  
 
 # 四種模式
-## 一、單向 props-down
-## 二、雙向 props-down, events-up
-## 三、Re-Mount 
-    元件刷新重整。法一就是直接重新 render 元件，缺點是元件的 state 也會重置不見。   
-    實務上，這還好可以補。因為 React 在此應用情境上只是輔助不是畫面的主體。
+## 一、單向 props-down   
+## 二、雙向 props-down, events-up   
+## 三、Re-Mount   
+元件刷新重整。法一就是直接重新 render 元件，缺點是元件的 state 也會重置不見。    
+實務上，這還好可以補。因為 React 在此應用情境上只是輔助不是畫面的主體。   
 
 ## 四、DidUpdate (進階用法)
-    元件刷新重整。法二是局部刷新元件，這樣元件的 state 可以維持。  
-    實作很麻煩，效益還好。因為 React render 的速度很快。
-    全部刷新跟局部刷新元件在體感上是一樣快的。
-    實務上，非得局部刷新元件的應用還沒想到。因為 React 在此應用情境上只是輔助不是畫面的主體。
+元件刷新重整。法二是局部刷新元件，這樣元件的 state 可以維持。  
+實作很麻煩，效益還好。因為 React render 的速度很快。  
+全部刷新跟局部刷新元件在體感上是一樣快的。   
+實務上，非得局部刷新元件的應用還沒想到。因為 React 在此應用情境上只是輔助不是畫面的主體。   
 
 > 另一個方案：把 React 打包成 WebComponent。   
 > 經測試(on 2023-9-26)，React 轉換成 Web Component 是可以的。但是 Blazor 無法完整的消費 Web Component。   
