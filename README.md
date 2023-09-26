@@ -1,6 +1,7 @@
 # ReactInBlazorWasm
  * Blazor WASM + NPM + React 練習   
  * 嘗試在 Blazor WASM/Server App 跑 React 元件
+ * 說明文章在此：[React In Blazor](https://rely-ky.gitbook.io/gitbook2/react-in-blazor) 
 
 # 引言
 官方還不支援。基本上 Blazor 與 React 是競爭對手互不合作是合理的。   
