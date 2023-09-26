@@ -23,6 +23,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@r2wc/react-to-web-component": "^2.0.2",
     "chart.js": "^4.4.0",
     "qrcode.react": "^3.1.0",
     "react-select": "^5.7.5",

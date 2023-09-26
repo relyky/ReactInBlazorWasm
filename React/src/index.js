@@ -1,5 +1,7 @@
 ﻿import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
+import r2wc from "@r2wc/react-to-web-component"
+import BlackScreen from './BlackScreen'
 import { v4 as uuidv4 } from 'uuid'
 import MyCounter from './MyCounter'
 import MyTitle from './MyTitle'
@@ -11,6 +13,17 @@ import MyMiniApp from './MyMiniApp'
 import MySelect2 from './MySelect2'
 
 window.MyReactComponentsRepo = {}
+
+//#region 只能註冊簡單的 Web Componnets
+//※ 只能 props-down 尚無法 events-up。
+
+customElements.define("web-black-screen", r2wc(BlackScreen, {
+  props: {
+    idname: "string",
+  },
+}));
+
+//#endregion
 
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
