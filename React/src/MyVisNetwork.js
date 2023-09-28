@@ -1,60 +1,60 @@
 ﻿import React, { useEffect, useRef } from "react"
-import Graph from "react-graph-vis-ts"
+import { Network } from "vis-network"
 
 export default function MyVisNetwork({ title }) {
-
 
   return (
     <div className="p-2 my-2" style={{ border: 'solid 2px red', borderRadius: 8 }}>
       <h3>{title}</h3>
-      <h4>我用 React 開發出來的</h4>
       <VisNetwork />
     </div>
   )
 }
 
 const VisNetwork = () => {
+  const visRef = useRef(null);
 
-  const graph = {
-    nodes: [
-      { id: 1, label: "Node 1", title: "node 1 tootip text" },
-      { id: 2, label: "Node 2", title: "node 2 tootip text" },
-      { id: 3, label: "Node 3", title: "node 3 tootip text" },
-      { id: 4, label: "Node 4", title: "node 4 tootip text" },
-      { id: 5, label: "Node 5", title: "node 5 tootip text" }
-    ],
-    edges: [
-      { from: 1, to: 2 },
-      { from: 1, to: 3 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 }
-    ]
+  const nodes = [
+    { id: 1, label: "Node 1", title: "tool tip 1" },
+    { id: 2, label: "節點２", title: "tool tip 2" },
+    { id: 3, label: "Node 3", title: "tool tip 3" },
+    { id: 4, label: "節點四", title: "tool tip 4" },
+    { id: 5, label: "Node 5", title: "tool tip 5" },
+    { id: 6, label: "第六點", title: "tool tip 6" },
+  ];
+
+  const edges = [
+    { from: 1, to: 3 },
+    { from: 1, to: 2 },
+    { from: 2, to: 4 },
+    { from: 2, to: 5 },
+    { from: 3, to: 3 },
+    { from: 1, to: 5 },
+  ];
+
+  const data = {
+    nodes: nodes,
+    edges: edges,
   };
 
   const options = {
-    layout: {
-      hierarchical: true
-    },
-    edges: {
-      color: "#000000"
-    },
-    height: "500px"
+    height: "400px",
+    //layout: {
+    //  hierarchical: true
+    //},
+    //edges: {
+    //  color: "#000000"
+    //},
   };
 
-  const events = {
-    select: function (event) {
-      var { nodes, edges } = event;
-    }
-  };
+  useEffect(() => {
+    const network = new Network(visRef.current, data, options);
+    // Use `network` here to configure events, etc
+  }, [visRef, nodes, edges, options]);
 
   return (
-    <Graph
-      graph={graph}
-      options={options}
-      events={events}
-      getNetwork={network => {
-        //  if you want access to vis.js network api you can set the state in a parent component using this property
-      }}
-    />
+    <div ref={visRef} style={{
+      border:'solid 1px darkgrey'
+    }} />
   )
-}; 
+}
