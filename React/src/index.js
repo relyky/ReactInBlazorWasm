@@ -29,7 +29,11 @@ customElements.define("web-black-screen", r2wc(BlackScreen, {
 //## 註冊單向繫結 React 元件：MyTitle
 window.renderMyTitle = function (rootElement, title) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<MyTitle title={title} />);
+  root.render(
+    <React.StrictMode>
+      <MyTitle title={title} />
+    </React.StrictMode>
+  );
 }
 
 //## 註冊雙向繫結 React 元件：MyCounter
@@ -104,8 +108,7 @@ window.renderMyMiniApp = function (rootElement, initAttrs) {
   return miniAppUid
 }
 
-window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object */)
-{
+window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object */) {
   const miniApp = window.MyReactComponentsRepo[miniAppUid]
   miniApp.updateAttrs(newAttrs)
 }
@@ -129,8 +132,7 @@ window.renderMySelect2 = function (dotNetObject, rootElement, options, value) {
     //console.log(`renderMySelect2.updateAttrs`);
     const { options, value } = newAttrs
 
-    if (options && Array.isArray(options))
-    {
+    if (options && Array.isArray(options)) {
       rootRef.current.updateOptions(options)
     }
 
@@ -166,5 +168,9 @@ window.updateMySelect2 = function (miniAppUid /* string */, newAttrs /* object *
 //#region ## 註冊元件: vis-network 測試 
 window.renderMyVisNetwork = function (rootElement, title) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<MyVisNetwork title={title} />);
+  root.render(
+    <React.StrictMode>
+      <MyVisNetwork title={title} />
+    </React.StrictMode>
+  );
 }
