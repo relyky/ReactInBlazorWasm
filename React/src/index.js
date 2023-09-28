@@ -11,6 +11,7 @@ import MyAcquisitionsChart from './MyAcquisitionsChart'
 import MyDimensionsChart from './MyDimensionsChart'
 import MyMiniApp from './MyMiniApp'
 import MySelect2 from './MySelect2'
+import MyVisNetwork from './MyVisNetwork'
 
 window.MyReactComponentsRepo = {}
 
@@ -82,7 +83,7 @@ window.renderMyDimensionsChart = function (rootElement, title, dataSets) {
   root.render(<MyDimensionsChart title={title} dataSets={dataSets} />);
 }
 
-//## 註冊進階元件
+//#region ## 註冊進階元件: MyMiniApp
 window.renderMyMiniApp = function (rootElement, initAttrs) {
   const root = ReactDOM.createRoot(rootElement)
   const rootRef = createRef()
@@ -109,7 +110,9 @@ window.updateMyMiniApp = function (miniAppUid /* string */, newAttrs /* object *
   miniApp.updateAttrs(newAttrs)
 }
 
-//## 註冊進階元件: MySelect Adv : react-select ====================================
+//#endregion
+
+//#region ## 註冊進階元件: MySelect Adv : react-select
 window.renderMySelect2 = function (dotNetObject, rootElement, options, value) {
   //const options = [
   //  { value: '焦糖瑪奇朵', label: '焦糖瑪奇朵' },
@@ -156,4 +159,12 @@ window.updateMySelect2 = function (miniAppUid /* string */, newAttrs /* object *
   console.log(`updateMySelect2 =>`, newAttrs);
   const miniApp = window.MyReactComponentsRepo[miniAppUid]
   miniApp.updateAttrs(newAttrs)
+}
+
+//#endregion
+
+//#region ## 註冊元件: vis-network 測試 
+window.renderMyVisNetwork = function (rootElement, title) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<MyVisNetwork title={title} />);
 }

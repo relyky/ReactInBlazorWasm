@@ -1,0 +1,19 @@
+﻿@page "/vis-network-sample"
+@inject IJSRuntime jsr
+
+<PageTitle>Vis-Network Sample</PageTitle>
+
+<h3>Vis-Network Sample</h3>
+<p>透過 vis-network 顯示 network graph。</p>
+
+<div @ref=refElement></div>
+
+@code {
+  ElementReference refElement;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    await jsr.InvokeVoidAsync("renderMyVisNetwork", refElement, "Vis-Network Sample");
+  }
+}
