@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "mediator-js@0.11.0",
+      "destination": "wwwroot/lib/mediator-js/",
+      "files": [
+        "lib/mediator.js",
+        "LICENSE.md",
+        "mediator.min.js",
+        "README.md"
+      ]
+    }
+  ]
+}

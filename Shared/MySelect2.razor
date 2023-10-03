@@ -1,19 +1,18 @@
 ﻿@using System.Dynamic;
 @inject IJSRuntime jsr
 
-<div @ref=refRoot></div>
+<div id=@elementId></div>
 
 @code {
-    [Parameter, EditorRequired] public List<ValueLabel> Options { get; set; } = default!;
-    [Parameter] public ValueLabel? Value { get; set; }
-    [Parameter] public EventCallback<ValueLabel> OnChange { get; set; }
+  [Parameter, EditorRequired] public List<ValueLabel> Options { get; set; } = default!;
+  [Parameter] public ValueLabel? Value { get; set; }
+  [Parameter] public EventCallback<ValueLabel> OnChange { get; set; }
 
-    ElementReference refRoot;
-    string? miniAppUid;
+  readonly string elementId = $"MySelect2-{Guid.NewGuid():D}";
 
-    List<ValueLabel> _oldOptions = default!;
-    bool f_dirty = false;
-    dynamic newAttrs = default!;
+  List<ValueLabel> _oldOptions = default!;
+  bool f_dirty = false;
+  dynamic newAttrs = default!;
 
   protected override void OnParametersSet()
   {
@@ -34,12 +33,13 @@
     await base.OnAfterRenderAsync(firstRender);
     if (firstRender)
     {
-      miniAppUid = await jsr.InvokeAsync<string>("renderMySelect2", DotNetObjectReference.Create(this), refRoot, Options, Value);
+      await jsr.InvokeAsync<string>("renderMySelect2", DotNetObjectReference.Create(this), elementId, Options, Value);
       //await InvokeAsync(StateHasChanged);
     }
     else if (f_dirty)
     {
-      await jsr.InvokeVoidAsync("updateMySelect2", miniAppUid, (object)newAttrs);
+      //※ 使用 mediator 間接通訊 - update props
+      await jsr.InvokeVoidAsync("window.__mediator.publish", elementId, (object)newAttrs);
       f_dirty = false;
     }
   }
