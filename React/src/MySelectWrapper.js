@@ -22,17 +22,20 @@ export default function MySelectWrapper({ dotNetObject, channel, options, value 
 
   useEffect(() => {
     // 註冊通訊
-    window.__mediator.subscribe(channel, (payload) => {
-      //## update props --- 實現 DidUpate
-      const { value: newValue, options: newOptions } = payload
-      if (!!newValue) setValue(newValue)
-      if (!!newOptions) setOptions(newOptions)
-    });
+    window.__eventBus.on(channel, channelCallback);
     return () => {
       // 解除註冊通訊
-      window.__mediator.remove(channel)
+      window.__eventBus.detach(channel, channelCallback);
     }
   }, [])
+
+  function channelCallback(payload) {
+    //## update props --- 實現 DidUpate
+    //console.log('channelCallback => payload', payload)
+    const { value: newValue, options: newOptions } = payload
+    if (!!newValue) setValue(newValue)
+    if (!!newOptions) setOptions(newOptions)
+  }
 
   //## events up with dotNetObject
   function handleChange(selectedOption /* LabelValue */) {

@@ -15,7 +15,6 @@
 </head>
 <body>
   <div id="app">Loading...</div>
-  <web-down-counter init-count="3" />
   <web-black-screen idname="reactinblazorwasm_loadtime" />
 
   <div id="blazor-error-ui">
@@ -24,16 +23,16 @@
     <a class="dismiss">🗙</a>
   </div>
   <script src="_framework/blazor.webassembly.js"></script>
-  <script src="lib/mediator-js/mediator.min.js"></script>
   <script src="lib/js-event-bus/lib/js-event-bus.min.js"></script>
-  <script src="js/index.bundle.js"></script>
-  <script>
+  <!-- script>
     //※ 導入 mediator/event-bus 以實現 Blazor 與 React 進階通訊。
     window.__eventBus = window.EventBus();
     window.__eventBus.on('web-down-counter:on-finish', function () {
-      alert('我出運了');
+      window.location.assign('/signout');
+      //alert('我出運了');
     });
-  </script>
+  <script -->
+  <script src="js/index.bundle.js"></script>
   <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 </html>

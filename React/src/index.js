@@ -1,4 +1,5 @@
-﻿import React from 'react'
+﻿"use strict";
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import r2wc from "@r2wc/react-to-web-component"
 import BlackScreen from './BlackScreen'
@@ -13,8 +14,13 @@ import MySelectWrapper from './MySelectWrapper'
 import MyVisNetwork from './MyVisNetwork'
 import MyDownCounter from './MyDownCounter'
 
-//※ 導入 mediator 以實現 Blazor 與 React 進階通訊。
-window.__mediator = window.Mediator();
+//※ 導入 mediator/event-bus 以實現 Blazor 與 React 進階通訊。
+window.__eventBus = window.EventBus();
+
+window.__eventBus.on('web-down-counter:on-finish', function () {
+  window.location.assign('/signout');
+  alert('模擬登入時間已到期 => 自動登出。')
+});
 
 //#region 只能註冊簡單的 Web Componnets
 //※ 只能 props-down 尚無法 events-up。

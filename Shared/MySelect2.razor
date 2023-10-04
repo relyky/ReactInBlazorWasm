@@ -39,8 +39,8 @@
     else if (f_dirty)
     {
       //※ 使用 mediator 間接通訊 - update props --- 要求 DidUpate
-      await jsr.InvokeVoidAsync("window.__mediator.publish", elementId, (object)newAttrs);
-      // 叫用JS: window.__mediator.publish(channle, payload);
+      await jsr.InvokeVoidAsync("window.__eventBus.emit", elementId, null, (object)newAttrs);
+      // 叫用JS: window.__eventBus.emit(elementId, null, newAttrs);
 
       f_dirty = false;
     }

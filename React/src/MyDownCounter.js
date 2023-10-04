@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react'
 
-export default function MyDownCounter({ initCount /*, onFinish */}) {
+export default function MyDownCounter({ initCount /*, onFinish */ }) {
   const [count, setCount] = useState(initCount)
   const [f_finish, setFinish] = useState(false)
 
@@ -14,11 +14,17 @@ export default function MyDownCounter({ initCount /*, onFinish */}) {
     }
   }, [count, f_finish])
 
+  // count-down timer
+  useEffect(() => {
+    const intervalId = setInterval(handleDown, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
-    <div className="p-2 my-2" style={{ border: 'solid 2px red', borderRadius: 8 }}>
-      <button onClick={handleDown}>倒數</button>
-      <button onClick={handleReset}>重置</button>
-      <h2>{count}</h2>
+    <div className="d-flex align-items-center border border-info px-2">
+      <div>{count}</div>
+      {/*<button onClick={handleDown} className="btn btn-sm">倒數</button>*/}
+      <button onClick={handleReset} className="btn btn-sm">重置</button>
     </div>
   )
 
