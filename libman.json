@@ -12,6 +12,16 @@
         "mediator.min.js",
         "README.md"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "js-event-bus@1.1.1",
+      "destination": "wwwroot/lib/js-event-bus/",
+      "files": [
+        "lib/js-event-bus.min.js",
+        "README.md",
+        "src/index.js"
+      ]
     }
   ]
 }

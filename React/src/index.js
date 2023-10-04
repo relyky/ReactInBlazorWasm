@@ -11,6 +11,7 @@ import MyAcquisitionsChart from './MyAcquisitionsChart'
 import MyDimensionsChart from './MyDimensionsChart'
 import MySelectWrapper from './MySelectWrapper'
 import MyVisNetwork from './MyVisNetwork'
+import MyDownCounter from './MyDownCounter'
 
 //※ 導入 mediator 以實現 Blazor 與 React 進階通訊。
 window.__mediator = window.Mediator();
@@ -21,6 +22,13 @@ window.__mediator = window.Mediator();
 customElements.define("web-black-screen", r2wc(BlackScreen, {
   props: {
     idname: "string",
+  },
+}));
+
+customElements.define("web-down-counter", r2wc(MyDownCounter, {
+  props: {
+    initCount: "number",
+    // onFinish: "function", //註：r2wc 於 React.v18 版尚無法傳遞 function 的樣子 (囧)。
   },
 }));
 
