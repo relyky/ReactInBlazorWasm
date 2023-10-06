@@ -20,7 +20,8 @@
 
   async Task HandleSetArticle()
   {
-    await refEditor.SetArticleAsync("<ul><li><em>我是新文章</em></li></ul>");
+    string newArticle = @"<h1><em style=""color: rgb(102, 185, 102);"">我是新文章</em></h1><p>就是這麼算簡單</p><iframe class=""ql-video"" frameborder=""0"" allowfullscreen=""true"" src=""https://www.youtube-nocookie.com/embed/Y1t1WytP4_0?si=Aa4IcvSrHxZZjXd2&amp;amp;controls=0""></iframe><p><br></p>";
+    await refEditor.SetArticleAsync(newArticle);
   }
 
   async Task HandleGetArticle()
