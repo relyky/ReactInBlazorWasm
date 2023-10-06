@@ -25,5 +25,9 @@ export default function MyRichEditor({ dotNetObject, channel, article }) {
       const content = editor.getHTML();
       dotNetObject.invokeMethodAsync('OnGetArticle', content);
     }
+    else if (action === 'setArticle') {
+      const { newArticle } = payload
+      setValue(newArticle)
+    }
   }
 }

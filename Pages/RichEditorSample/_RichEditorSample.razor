@@ -7,6 +7,7 @@
 <MyRichEditor @ref=refEditor DefaultArticle="這不是文章" ReqArticleCallback=ReqArticleCallback />
 
 <button class="btn btn-primary" @onclick=HandleGetArticle>拿取文章</button>
+<button class="btn btn-primary" @onclick=HandleSetArticle>變更文章</button>
 
 <hr />
 
@@ -16,6 +17,11 @@
   MyRichEditor refEditor = default!;
 
   string article = string.Empty; //  "Rich Editor with Quill"
+
+  async Task HandleSetArticle()
+  {
+    await refEditor.SetArticleAsync("<ul><li><em>我是新文章</em></li></ul>");
+  }
 
   async Task HandleGetArticle()
   {

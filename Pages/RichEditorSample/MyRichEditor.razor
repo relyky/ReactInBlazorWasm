@@ -18,6 +18,11 @@
     }
   }
 
+  public async Task SetArticleAsync(string newArticle)
+  {
+    await jsr.InvokeVoidAsync("window.__eventBus.emit", elementId, null, "setArticle", (object)(new { newArticle }));
+  }
+
   public async Task ReqArticleAsync()
   {
     await jsr.InvokeVoidAsync("window.__eventBus.emit", elementId, null, "takeArticle");
