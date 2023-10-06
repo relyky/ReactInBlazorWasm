@@ -13,6 +13,8 @@ import MyDimensionsChart from './MyDimensionsChart'
 import MySelectWrapper from './MySelectWrapper'
 import MyVisNetwork from './MyVisNetwork'
 import MyDownCounter from './MyDownCounter'
+import MyRichEditor from './MyRichEditor'
+import MyRichViewer from './MyRichViewer'
 
 //※ 導入 mediator/event-bus 以實現 Blazor 與 React 進階通訊。
 window.__eventBus = window.EventBus();
@@ -122,6 +124,25 @@ window.renderMyVisNetwork = function (rootElement, title) {
   root.render(
     <React.StrictMode>
       <MyVisNetwork title={title} />
+    </React.StrictMode>
+  );
+}
+
+//## 註冊元件: react-quill 測試 
+window.renderMyRichEditor = function (dotNetObject, rootElement, article) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <MyRichEditor dotNetObject={dotNetObject} article={article} />
+    </React.StrictMode>
+  );
+}
+
+window.renderMyRichViewer = function (rootElement, article) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <MyRichViewer article={article} />
     </React.StrictMode>
   );
 }

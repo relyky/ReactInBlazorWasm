@@ -1,0 +1,27 @@
+﻿@inject IJSRuntime jsr
+
+<div @ref=refRoot></div>
+@* for React to render *@
+
+@code {
+  [Parameter, EditorRequired] public string Article { get; set; } = default!;
+
+  ElementReference refRoot;
+  bool f_dirty = false;
+
+  protected override void OnParametersSet()
+  {
+    base.OnParametersSet();
+    f_dirty = true;
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender || f_dirty)
+    {
+      await jsr.InvokeVoidAsync("renderMyRichViewer", refRoot, Article);
+      f_dirty = false;
+    }
+  }
+}
