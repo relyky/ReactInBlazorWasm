@@ -1,0 +1,31 @@
+﻿@inject IJSRuntime jsr
+
+<div id=@elementId></div>
+@* for React to render *@
+
+@code {
+  [Parameter, EditorRequired] public string DefaultArticle { get; set; } = default!;
+  [Parameter] public EventCallback<string> ReqArticleCallback { get; set; }
+
+  readonly string elementId = $"MyRichEditor-{Guid.NewGuid():D}";
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      await jsr.InvokeVoidAsync("renderMyRichEditor", DotNetObjectReference.Create(this), elementId, DefaultArticle);
+    }
+  }
+
+  public async Task ReqArticleAsync()
+  {
+    await jsr.InvokeVoidAsync("window.__eventBus.emit", elementId, null, "takeArticle");
+  }
+
+  /// <summary>
+  /// 當 React 元件有訊息送上來時觸發。
+  /// </summary>
+  [JSInvokable]
+  public Task OnGetArticle(string value) => ReqArticleCallback.InvokeAsync(value);
+}

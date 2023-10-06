@@ -88,7 +88,7 @@ window.renderMySelect = function (dotNetObject, rootElement, options, value) {
 //#region ## 註冊進階元件: MySelect Adv : react-select
 
 window.renderMySelect2 = function (dotNetObject, elementId, options, value) {
-  //注意：此例 elementId 也是 channelId。將透過 mediator 間接通訊。
+  //注意：此例 elementId 也是 channelId。將透過 eventBus 間接通訊。
   const rootElement = document.getElementById(elementId)
   const root = ReactDOM.createRoot(rootElement)
   root.render(
@@ -129,11 +129,13 @@ window.renderMyVisNetwork = function (rootElement, title) {
 }
 
 //## 註冊元件: react-quill 測試 
-window.renderMyRichEditor = function (dotNetObject, rootElement, article) {
+window.renderMyRichEditor = function (dotNetObject, elementId, article) {
+  //注意：此例 elementId 也是 channelId。將透過 eventBus 間接通訊。
+  const rootElement = document.getElementById(elementId)
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <MyRichEditor dotNetObject={dotNetObject} article={article} />
+      <MyRichEditor dotNetObject={dotNetObject} channel={elementId} article={article} />
     </React.StrictMode>
   );
 }

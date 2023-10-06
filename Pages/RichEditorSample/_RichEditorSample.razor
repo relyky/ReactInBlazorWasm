@@ -1,40 +1,30 @@
 ﻿@page "/rich-editor-sample"
-@inject IJSRuntime jsr
 
 <PageTitle>Rich Editor Sample</PageTitle>
 
 <h1>Rich Editor Sample</h1>
 
-<div @ref=refRoot></div>
-@* for React to render *@
-<hr/>
-<h3>文章內容</h3>
-<pre>
-  @article
-</pre>
+<MyRichEditor @ref=refEditor DefaultArticle="這不是文章" ReqArticleCallback=ReqArticleCallback />
+
+<button class="btn btn-primary" @onclick=HandleGetArticle>拿取文章</button>
+
 <hr />
+
 <MyRichViewer Article=@article />
 
 @code {
-  ElementReference refRoot;
+  MyRichEditor refEditor = default!;
+
   string article = string.Empty; //  "Rich Editor with Quill"
 
-  protected override async Task OnAfterRenderAsync(bool firstRender)
+  async Task HandleGetArticle()
   {
-    await base.OnAfterRenderAsync(firstRender);
-    if (firstRender)
-    {
-      await jsr.InvokeVoidAsync("renderMyRichEditor", DotNetObjectReference.Create(this), refRoot, article);
-    }
+    await refEditor.ReqArticleAsync();
   }
 
-  /// <summary>
-  /// 當 React 元件有訊息送上來時觸發。
-  /// </summary>
-  [JSInvokable]
-  public async Task OnGetArticle(string value)
+  async Task ReqArticleCallback(string newArticle)
   {
-    article = value;
+    article = newArticle;
     await InvokeAsync(StateHasChanged);
   }
 }

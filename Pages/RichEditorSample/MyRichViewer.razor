@@ -3,6 +3,12 @@
 <div @ref=refRoot></div>
 @* for React to render *@
 
+<hr />
+<h5>文章原文</h5>
+<pre>
+  @Article
+</pre>
+
 @code {
   [Parameter, EditorRequired] public string Article { get; set; } = default!;
 
